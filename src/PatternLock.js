@@ -20,12 +20,6 @@ const PatternLock = () => {
     Alert.alert('Try Again');
   };
 
-//   const onPatternMatchAfterDelay = () => {
-//     // Do your Functionalities
-//   };
-//   const onWrongPatternAfterDelay = () => {
-//     // Do your Functionalities
-//   };
   return (
     <View>
       <GeneralPatternLock
