@@ -6,6 +6,7 @@ import {
   Button,
   Alert,
   ToastAndroid,
+  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
@@ -20,15 +21,13 @@ const WelcomeScreen = () => {
     Biometrics.isSensorAvailable()
       .then(resultObject => {
         const {available, biometryType} = resultObject;
-        if (
-          available &&
-          biometryType === BiometryTypes.TouchID &&
-          biometryType === BiometryTypes.FaceID
-        ) {
+        if (available && biometryType === BiometryTypes.TouchID) {
           authenticateWithBiometrics();
-          console.log('TouchID & FaceID is supported');
+          console.log('TouchID is supported');
+        } else if (available && biometryType === BiometryTypes.FaceID) {
+          console.log('FaceID is not supported');
         } else {
-          Alert.alert('Biometric authentication not available.');
+            Alert.alert('Biometric authentication not available.');
           console.log('Biometrics not supported');
         }
       })
@@ -45,6 +44,7 @@ const WelcomeScreen = () => {
         const {success} = result;
 
         if (success) {
+          navigation.navigate('Home');
           ToastAndroid.show('Biometric authentication successful', 1000);
           console.log('Authentication successful!');
         } else {
@@ -59,6 +59,7 @@ const WelcomeScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to SecureAuth</Text>
+      <Image source={require('./SecureAuth.jpg')} style={styles.img}></Image>
       {/* <PatternLock/> */}
     </View>
   );
@@ -73,8 +74,13 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 20,
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
+    color: 'black',
+  },
+  img: {
+    width: '60%',
+    height: '50%',
   },
 });
 

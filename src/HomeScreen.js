@@ -2,8 +2,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 
 const HomeScreen = () => {
-  const textMsg = `You Successfully Completed 
-  Biometrics Authentication`;
+  const textMsg = `You have Successfully Completed 
+       Biometrics Authentication`;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to SecureAuth</Text>
@@ -23,19 +23,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color:'Skyblue',
-    marginBottom: 40,
+    color:'#000',
+    marginBottom: '20%',
   },
   msgView:{
     backgroundColor: 'skyblue',
-    padding: 10,
-    marginHorizontal: 20,
+    padding: 15,
+    marginHorizontal: '5%',
     borderRadius: 10,
+    alignSelf: 'center',
   },
   textMsg:{
     fontSize: 20,
     fontWeight: 'bold',
-    color:'black',
+    color:'#fff',
+    alignSelf: 'center',
   },
 });
 
