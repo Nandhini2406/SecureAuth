@@ -19,31 +19,32 @@ const WelcomeScreen = () => {
   useEffect(() => {
     // Check if biometric authentication is available
     Biometrics.isSensorAvailable()
-      .then(resultObject => {
-        const {available, biometryType} = resultObject;
-        if (available && biometryType === BiometryTypes.TouchID) {
-          authenticateWithBiometrics();
-          console.log('TouchID is supported');
-        } else if (available && biometryType === BiometryTypes.FaceID) {
-          console.log('FaceID is not supported');
-        } else {
-            Alert.alert('Biometric authentication not available.');
-          console.log('Biometrics not supported');
-        }
-      })
-      .catch(error => {
-        console.error('Error Caught', error);
-      });
+    .then(resultObject => {
+      const {available, biometryType} = resultObject;
+      if (available && biometryType === BiometryTypes.TouchID) {
+        authenticateWithBiometrics();
+        console.log('TouchID is supported');
+      } else if (available && biometryType === BiometryTypes.FaceID) {
+        authenticateWithBiometrics();
+        console.log('FaceID is supported');
+      } else {
+        Alert.alert('Biometric authentication not available.');
+        console.log('Biometrics not supported');
+      }
+    })
+    .catch(error => {
+      console.error('Error Caught', error);
+    });
   }, []);
-
+  
   const authenticateWithBiometrics = () => {
     Biometrics.simplePrompt({
       promptMessage: 'Fingerprint/Face Authentication',
     })
-      .then(result => {
-        const {success} = result;
-
-        if (success) {
+    .then(result => {
+      const {success} = result;
+      
+      if (success) {
           navigation.navigate('Home');
           ToastAndroid.show('Biometric authentication successful', 1000);
           console.log('Authentication successful!');
@@ -60,7 +61,7 @@ const WelcomeScreen = () => {
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to SecureAuth</Text>
       <Image source={require('./SecureAuth.jpg')} style={styles.img}></Image>
-      {/* <PatternLock/> */}
+      <PatternLock/>
     </View>
   );
 };
@@ -73,7 +74,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   text: {
-    marginBottom: 20,
     fontSize: 28,
     fontWeight: 'bold',
     color: 'black',
